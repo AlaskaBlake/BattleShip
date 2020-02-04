@@ -1,0 +1,15 @@
+User Stories:
+
+See the boards
+Shoot
+See hits or misses
+Place ships
+Play against Person
+
+Nice looking graphics
+Friendly controls
+
+Varies board sizes
+Varies ships
+Play against AI with different levels of difficulty
+Sounds
