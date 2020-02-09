@@ -1,2 +1,6 @@
 2/3/2020
   Spent an hour reading about user stories, developing user stories for BattleShip project, and getting repository set up.
+2/7/2020
+  Spent 15 minutes assigning times to the user stroies with Theng.
+2/9/2020
+  Spent 2.5 hours with Theng doing the first three user stories.
