@@ -1,12 +1,12 @@
 User Stories:                                     Story Points:                 Actual Time:
-Pass and Play ........................................ 3 ............................ 45 min
-See both of my boards ................................ 2 ............................ 30 min
-Place my Ships ....................................... 1 ............................ 2 hours
-Shoot at my opponets ................................. 2 ............................ 30 min
-See if My shot hit or not (enforced by the game) ..... 1 ............................ 30 min
-Win Condition (enforced by the game) ................. 2 ............................ 30 min
+Pass and Play ........................................ 3 ............................ 45 min (both)
+See both of my boards ................................ 2 ............................ 30 min (both)
+Place my Ships ....................................... 1 ............................ 2 hours (both)
+Shoot at my opponets ................................. 2 ............................ 30 min (both)
+See if My shot hit or not (enforced by the game) ..... 1 ............................ 30 min (both)
+Win Condition (enforced by the game) ................. 2 ............................ 30 min (both)
 Friendly controls .................................... 5 ............................ 
-Nice graphics in terminal ............................ 13 ........................... 
+Nice graphics in terminal ............................ 13 ........................... 1 hour (Blake)
 Various ships ........................................ 1 ............................ 
 Play against AI a couple levels of difficulty ........ 8 ............................ 
 Various board options ................................ 5 ............................ 
