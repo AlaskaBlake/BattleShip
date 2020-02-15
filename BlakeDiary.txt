@@ -4,3 +4,6 @@
   Spent 15 minutes assigning times to the user stroies with Theng.
 2/9/2020
   Spent 2.5 hours with Theng doing the first three user stories.
+2/15/19
+  Spent 2 hours with Theng working on user stories. At this point I will work on board graphics and Theng will work on friendly controls.  
+  After we will join back together again and continue user stories.
