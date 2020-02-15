@@ -97,6 +97,7 @@ int main() {
 			player2.print();
 			cout << "That was a miss. Press enter to continue." << endl;
 		}
+		while (cin.get() != '\n') {}
 	}
 
 
