@@ -18,6 +18,8 @@ public:
 	std::string getname() const;
 	void print();
 	void placeShip();
+	bool shoot(Player & p2);
+	bool winCheck();
 
 private:
 	std::string _name;

@@ -11,6 +11,9 @@ using std::ostream;
 using std::cout;
 using std::endl;
 
+#include <algorithm>>
+using std::count;
+
 Board::Board(){
 	for (int i = 0; i < 100; ++i)
 		_board.push_back('-');
@@ -77,14 +80,22 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 	index += col;
 
 	int buttIn = 0;
+	bool flag = false;
 
 	if (dir == 'E') {
 		if (index / 10 == (index + length) / 10) {
 
 			for (int i = index; i < index + length; ++i) {
-				_board[i] = 'S';
+				if (_board[i] == 'S')
+					flag = true;
 			}
-			return true;
+
+			if (!flag) {
+				for (int i = index; i < index + length; ++i) {
+					_board[i] = 'S';
+				}
+				return true;
+			}
 
 		}
 	
@@ -93,10 +104,17 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 	if (dir == 'W') {
 		if (index / 10 == (index - length) / 10) {
 
-			for (int i = index-length+1; i <= index; ++i) {
-				_board[i] = 'S';
+			for (int i = index - length + 1; i <= index; ++i) {
+				if (_board[i] == 'S')
+					flag = true;
 			}
-			return true;
+
+			if (!flag) {
+				for (int i = index - length + 1; i <= index; ++i) {
+					_board[i] = 'S';
+				}
+				return true;
+			}
 		}
 
 	}
@@ -108,10 +126,17 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 		copy *= 10;
 
 		if (index - copy >= 0) {
-			for (int i = index; i > index-copy; i-=10) {
-				_board[i] = 'S';
+			for (int i = index; i > index - copy; i -= 10) {
+				if (_board[i] == 'S')
+					flag = true;
 			}
-			return true;
+
+			if (!flag) {
+				for (int i = index; i > index - copy; i -= 10) {
+					_board[i] = 'S';
+				}
+				return true;
+			}
 		}
 
 	}
@@ -124,11 +149,31 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 
 		if (index + copy <= 99) {
 			for (int i = index; i < index + copy; i += 10) {
-				_board[i] = 'S';
+				if(_board[i] == 'S')
+					flag = true;
 			}
-			return true;
+			if (!flag) {
+				for (int i = index; i < index + copy; i += 10) {
+					_board[i] = 'S';
+				}
+				return true;
+			}
 		}
 
 	}
+	return false;
+}
+
+char Board::getPos(const int& index) {
+	return _board[index];
+}
+
+void Board::writeShot(const int& index, const char& letter) {
+	_board[index] = letter;
+}
+
+bool Board::totalHit() {
+	if (count(_board.begin(), _board.end(), 'H') == 17)
+		return true;
 	return false;
 }

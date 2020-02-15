@@ -12,6 +12,9 @@ public:
 	Board();
 	void print();
 	bool writeShip(const int & length, const char & row, const int & col, const char & dir);
+	char getPos(const int& index);
+	void writeShot(const int& index, const char& letter);
+	bool totalHit();
 private:
 	std::vector<char> _board;
 };
