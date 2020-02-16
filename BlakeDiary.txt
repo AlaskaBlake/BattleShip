@@ -9,3 +9,5 @@
   After we will join back together again and continue user stories.
 2/15/2020
   Spent one hour working on nicer board printing alone. Severely over estimated the time required to do the nicer graphics user story.
+2/16/2020
+  Spent three hours with Theng working on refactoring code and the easy mode for the Bot option.
