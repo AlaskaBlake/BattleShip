@@ -12,3 +12,6 @@ Work on game logic and game play (3rd and 4th user-stories) with Blake for 2 hou
 
 FEB 15 2020:
 Spend an hour 30 minutes working on babyproofing inputs alone.
+
+FEB 16 2020:
+Work with Blake on dumb AI and refactoring codes for 3 hours.
