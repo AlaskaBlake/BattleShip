@@ -20,6 +20,9 @@ using std::cin;
 #include<sstream>
 using std::istringstream;
 
+#include <algorithm>
+using std::move;
+
 bool getCord(const int& length, Board & _myBoard) {
 	char row;
 	int col;
@@ -76,65 +79,102 @@ void Player::print() {
 }
 
 void Player::placeShip() {
-	int choice = 0;
-	string sChoice;
-	
-	bool five = true;
-	bool four = true;
-	bool three1 = true;
-	bool three2 = true;
-	bool two = true;
 
-	while (five || four || three1 || three2 || two) {
-		_myBoard.print();
-		cout << "Please select which ship you want to place by entering their number." << endl;
+	while (true) {
+		int choice = 0;
+		string sChoice;
 
-		if (five) {
-			cout << "Place five? (5)" << endl;
-		}
-		if (four) {
-			cout << "Place four? (4)" << endl;
-		}
-		if (three1) {
-			cout << "Place three? (3)" << endl;
-		}
-		if (three2) {
-			cout << "Place three? (3)" << endl;
-		}
-		if (two) {
-			cout << "Place two? (2)" << endl;
+		bool five = true;
+		bool four = true;
+		bool three1 = true;
+		bool three2 = true;
+		bool two = true;
+
+		while (five || four || three1 || three2 || two) {
+			_myBoard.print();
+			cout << "Please select which ship you want to place by entering their number." << endl;
+
+			if (five) {
+				cout << "Place five? (5)" << endl;
+			}
+			if (four) {
+				cout << "Place four? (4)" << endl;
+			}
+			if (three1) {
+				cout << "Place three? (3)" << endl;
+			}
+			if (three2) {
+				cout << "Place three? (3)" << endl;
+			}
+			if (two) {
+				cout << "Place two? (2)" << endl;
+			}
+
+			getline(cin, sChoice);
+			istringstream ins(sChoice);
+			ins >> choice;
+
+			if (choice == 5 && five) {
+				five = getCord(5, _myBoard);
+			}
+			else if (choice == 4 && four) {
+				four = getCord(4, _myBoard);
+			}
+			else if (choice == 3 && three1) {
+				three1 = getCord(3, _myBoard);
+			}
+			else if (choice == 3 && three2) {
+				three2 = getCord(3, _myBoard);
+			}
+			else if (choice == 2 && two) {
+				two = getCord(2, _myBoard);
+			}
+			else {
+				cout << "Invalid ship selectioin. Please hit Enter to try again." << endl;
+			}
+
+			while (std::cin.get() != '\n') {}
+
+			system("CLS");
 		}
 
-		getline(cin, sChoice);
-		istringstream ins(sChoice);
-		ins >> choice;
+		char answer;
 
-		if (choice == 5 && five) {
-			five = getCord(5, _myBoard);
+		while (true) {
+			_myBoard.print();
+			cout << "Are you happy with your ship placement? ('Y' or 'N')" << endl;
+			string input;
+			getline(cin, input);
+			istringstream ins(input);
+			ins >> answer;
+			if (!ins) {
+				cout << "Not a valid input. Please hit enter to continue." << endl;
+				while (cin.get() != '\n') {}
+				system("CLS");
+				continue;
+			}
+
+			answer = toupper(answer);
+
+			if (answer == 'Y' || answer == 'N')
+				break;
+			system("CLS");
+			cout << "Not a valid option. Please try again." << endl;
 		}
-		else if (choice == 4 && four) {
-			four = getCord(4, _myBoard);
-		}
-		else if (choice == 3 && three1) {
-			three1 = getCord(3, _myBoard);
-		}
-		else if (choice == 3 && three2) {
-			three2 = getCord(3, _myBoard);
-		}
-		else if (choice == 2 && two) {
-			two = getCord(2, _myBoard);
-		}
-		else {
-			cout << "Invalid ship selectioin. Please hit Enter to try again." << endl;
-		}
+
+		if (answer == 'Y')
+			break;
 		
-		while (std::cin.get() != '\n') {}
-
+		Board temp;
+		_myBoard = move(temp);
+		cout << "Press enter to start again." << endl;
+		while (cin.get() != '\n') {}
 		system("CLS");
+
 	}
 }
 
-bool Player::shoot(Player & p2) {
+bool Player::shoot(Board & p2) {
 
 	char row;
 	int col;
@@ -153,59 +193,18 @@ bool Player::shoot(Player & p2) {
 
 		int index = 0;
 
-		switch (row) {
-		case 'A':
-			break;
-
-		case 'B':
-			index = 10;
-			break;
-
-		case 'C':
-			index = 20;
-			break;
-
-		case 'D':
-			index = 30;
-			break;
-
-		case 'E':
-			index = 40;
-			break;
-
-		case 'F':
-			index = 50;
-			break;
-
-		case 'G':
-			index = 60;
-			break;
-
-		case 'H':
-			index = 70;
-			break;
-
-		case 'I':
-			index = 80;
-			break;
-
-		case 'J':
-			index = 90;
-			break;
-		}
-
-		index += col;
+		index = (row - 'A') * 10 + col;
 
 		if (_guessBoard.getPos(index) == 'H' || _guessBoard.getPos(index) == 'M')
 			continue;
 
-		if (p2._myBoard.getPos(index) == 'S') {
-			p2._myBoard.writeShot(index, 'H');
+		if (p2.getPos(index) == 'S') {
+			p2.writeShot(index, 'H');
 			_guessBoard.writeShot(index, 'H');
 			return true;
 		}
 		else {
-			p2._myBoard.writeShot(index, 'M');
+			p2.writeShot(index, 'M');
 			_guessBoard.writeShot(index, 'M');
 			return false;
 		}
@@ -215,4 +214,8 @@ bool Player::shoot(Player & p2) {
 
 bool Player::winCheck() {
 	return _guessBoard.totalHit();
+}
+
+Board& Player::getBoard() {
+	return _myBoard;
 }

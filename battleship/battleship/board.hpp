@@ -3,6 +3,10 @@
 //Febuary 9, 2020
 //header for the board class
 
+#ifndef BOARD_HPP
+#define BOARD_HPP
+
+
 #include <vector>
 
 #include <ostream>
@@ -19,4 +23,4 @@ private:
 	std::vector<char> _board;
 };
 
-
+#endif // !BOARD_HPP
