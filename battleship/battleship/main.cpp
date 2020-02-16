@@ -39,12 +39,28 @@ int main() {
 
 	cout << "Player one please enter your name: ";
 	string temp;
-	getline(cin, temp);
+	while (true) {
+		getline(cin, temp);
+		if (temp != "")
+			break;
+		cout << "Name must not be Empty. Please enter you name:" << endl;
+	}
 	player1.setname(temp);
 	cout << endl << "Hello " << player1.getname() << endl;
 
 	cout << endl << "Player two please enter your name: ";
-	getline(cin, temp);
+	while (true) {
+		getline(cin, temp);
+		if (temp == "") {
+			cout << "Name must not be Empty. Please enter you name:" << endl;
+			continue;
+		}
+		else if (temp == player1.getname()) {
+			cout << "Name taken. Please try again." << endl;
+			continue;
+		}
+		break;
+	}
 	player2.setname(temp);
 	cout << endl << "Hello " << player2.getname() << endl;
 
@@ -59,7 +75,6 @@ int main() {
 	player2.placeShip();
 
 	while (true) {
-
 
 		pass(turn, player1, player2);
 

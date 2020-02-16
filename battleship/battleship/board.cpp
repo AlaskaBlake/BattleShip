@@ -153,7 +153,7 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 	}
 
 	if (dir == 'W') {
-		if (index / 10 == (index - length) / 10) {
+		if (index!= 0 && (index / 10 == (index - length) / 10)) {
 
 			for (int i = index - length + 1; i <= index; ++i) {
 				if (_board[i] == 'S')

@@ -5,9 +5,12 @@
 
 #include "player.hpp"
 
-
 using std::string;
 using std::getline;
+
+#include <Windows.h>
+using std::system;
+
 
 #include<iostream>
 using std::cout;
@@ -28,34 +31,35 @@ bool getCord(const int& length, Board & _myBoard) {
 	istringstream instream(cord);
 	instream >> row;
 	instream >> col;
-
+	row = toupper(row);
 	if (row >= 'A' && row<='J') {
 		if (col >= 0 && col <= 9) {
-
 			cout << "What direction would you like to place this ship? north (N) east (E) south (S) west (W)" << endl;
 			cin >> dir;
-
+			dir = toupper(dir);
 			if (dir == 'N' || dir == 'E' || dir == 'S' || dir == 'W') {
 				if (_myBoard.writeShip(length, row, col, dir)) {
-
-					cout << "Ship placed." << endl;
+					system("CLS");
 					return false;
 				}
 				else {
+					
 					cout << "Bad ship placement. Try again." << endl;
 				}
 			}
 
 		}
 		else {
-			cout << "NO valid coordinate, please try again." << endl;
+			
+			cout << "NO valid coordinate, please hit Enter to try again." << endl;
 		}
 		
 	}
 	else {
-		cout << "NO valid coordinate, please try again." << endl;
+	
+		cout << "NO valid coordinate, please hit Enter try again." << endl;
 	}
-
+	
 	return true;
 }
 void Player::setname(const string& name) {
@@ -105,26 +109,29 @@ void Player::placeShip() {
 		istringstream ins(sChoice);
 		ins >> choice;
 
-		if (choice == 5) {
+		if (choice == 5 && five) {
 			five = getCord(5, _myBoard);
 		}
-		else if (choice == 4) {
+		else if (choice == 4 && four) {
 			four = getCord(4, _myBoard);
 		}
 		else if (choice == 3 && three1) {
 			three1 = getCord(3, _myBoard);
 		}
-		else if (choice == 3) {
+		else if (choice == 3 && three2) {
 			three2 = getCord(3, _myBoard);
 		}
-		else if (choice == 2) {
+		else if (choice == 2 && two) {
 			two = getCord(2, _myBoard);
 		}
-
+		else {
+			cout << "Invalid ship selectioin. Please hit Enter to try again." << endl;
+		}
+		
 		while (std::cin.get() != '\n') {}
 
+		system("CLS");
 	}
-
 }
 
 bool Player::shoot(Player & p2) {
@@ -140,7 +147,7 @@ bool Player::shoot(Player & p2) {
 		istringstream instream(cord);
 		instream >> row;
 		instream >> col;
-
+		row = toupper(row);
 		if (!(row >= 'A' && row <= 'J' && col >= 0 && col <= 9))
 			continue;
 
