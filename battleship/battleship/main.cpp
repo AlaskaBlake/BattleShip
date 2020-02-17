@@ -41,26 +41,26 @@ int pvp() {
 	Player player2;
 	bool turn = false; // True is player one and false for player two
 
-	cout << "Player one please enter your name: ";
+	cout << "Player one please enter your name and then hit enter: ";
 	string temp;
 	while (true) {
 		getline(cin, temp);
 		if (temp != "")
 			break;
-		cout << "Name must not be Empty. Please enter you name:" << endl;
+		cout << "Name must not be Empty. Please enter you name and then hit enter:" << endl;
 	}
 	player1.setname(temp);
 	cout << endl << "Hello " << player1.getname() << endl;
 
-	cout << endl << "Player two please enter your name: ";
+	cout << endl << "Player two please enter your name and then hit enter: ";
 	while (true) {
 		getline(cin, temp);
 		if (temp == "") {
-			cout << "Name must not be Empty. Please enter you name:" << endl;
+			cout << "Name must not be Empty. Please enter you name and then hit enter:" << endl;
 			continue;
 		}
 		else if (temp == player1.getname()) {
-			cout << "Name taken. Please try again." << endl;
+			cout << "Name taken. Please try again. Press enter to continue." << endl;
 			continue;
 		}
 		break;
@@ -68,7 +68,7 @@ int pvp() {
 	player2.setname(temp);
 	cout << endl << "Hello " << player2.getname() << endl;
 
-	cout << "Pass the computer to " << player1.getname() << " and hit enter when ready" << endl;
+	cout << "Pass the computer to " << player1.getname() << " and hit enter when ready." << endl;
 	while (cin.get() != '\n') {}
 	system("CLS");
 
@@ -122,26 +122,26 @@ int pvp() {
 
 int pvbot() {
 	Player player1;
-	cout << "Player one please enter your name: ";
+	cout << "Player one please enter your name and then hit enter: ";
 	string temp;
 	while (true) {
 		getline(cin, temp);
 		if (temp != "")
 			break;
-		cout << "Name must not be Empty. Please enter you name:" << endl;
+		cout << "Name must not be Empty. Please enter you name and then hit enter:" << endl;
 	}
 	player1.setname(temp);
 
 	char choice;
 	while (true) {
-		cout << endl << "Hello " << player1.getname() << " would you like an easy computer or a harder computer? (\"E\" or \"H\")" << endl;
+		cout << endl << "Hello " << player1.getname() << " would you like an easy computer or a harder computer? Please \"E\" for an easy bot or \"H\" for a hard bot" << endl;
 
 		string option;
 		getline(cin, option);
 		istringstream ins(option);
 		ins >> choice;
 		if (!ins || (choice != 'E' && choice != 'e' && choice != 'H' && choice != 'h')) {
-			cout << "Bad input please try again." << endl;
+			cout << "Bad input please try again. Hit enter to continue." << endl;
 			continue;
 		}
 
@@ -219,13 +219,14 @@ int main() {
 	char answer;
 	while (true) {
 		cout << "Would you like to play BattleShip vs another player (locally) or against a computer?" << endl;
-		cout << "For Computer hit \"C\" for Person hit \"P\"." << endl;
+		cout << "For Computer hit \"C\" for Person hit \"P\" and then enter." << endl;
 		string input;
 		getline(cin, input);
 		istringstream ins(input);
 		ins >> answer;
 		if (!ins || (answer != 'c' && answer != 'C' && answer != 'p' && answer != 'P')) {
-			cout << "Bad input please try again." << endl;
+			cout << "Bad input please try again. Press enter to continue." << endl;
+			while (cin.get() != '\n') {}
 			continue;
 		}
 
