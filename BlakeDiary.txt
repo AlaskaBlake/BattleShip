@@ -11,3 +11,5 @@
   Spent one hour working on nicer board printing alone. Severely over estimated the time required to do the nicer graphics user story.
 2/16/2020
   Spent three hours with Theng working on refactoring code and the easy mode for the Bot option.
+2/16/2020
+  Spent hour and a half working on the hardmode bot.
