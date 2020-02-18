@@ -8,6 +8,10 @@
 
 #include "board.hpp"
 
+#include <vector>
+
+#include <tuple>
+
 class Bot {
 public:
 	Bot(const bool& diff);
@@ -20,6 +24,7 @@ private:
 	bool _difficulty;
 	Board _myBoard;
 	Board _guessBoard;
+	std::vector<std::tuple<int, bool, bool, bool, bool>> _hits;
 };
 
 #endif
