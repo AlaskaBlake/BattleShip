@@ -83,8 +83,6 @@ void Bot::placeShip() {
 
 }
 
-//edge cases
-//guesses randomly on edge of board
 bool Bot::shoot(Board& p2) {
 	if (_difficulty) {
 		for (int i = 0; i < _hits.size(); ++i) {
@@ -104,13 +102,13 @@ bool Bot::shoot(Board& p2) {
 					}
 				}
 			}
-			else if (!(get<2>(_hits[i]))){
+			if (!(get<2>(_hits[i]))){
 				get<2>(_hits[i]) = true;
 				if (get<0>(_hits[i])/10 == (get<0>(_hits[i])+1) / 10 && _guessBoard.getPos(get<0>(_hits[i]) + 1) != 'M' && _guessBoard.getPos(get<0>(_hits[i]) + 1) != 'H') {
 					if (p2.getPos(get<0>(_hits[i]) + 1) == 'S') {
 						p2.writeShot(get<0>(_hits[i]) + 1, 'H');
 						_guessBoard.writeShot(get<0>(_hits[i]) + 1, 'H');
-						_hits.push_back(make_tuple(get<0>(_hits[i]) - 10, false, false, false, true));
+						_hits.push_back(make_tuple(get<0>(_hits[i]) + 1, false, false, false, true));
 						return true;
 					}
 					else {
@@ -120,13 +118,13 @@ bool Bot::shoot(Board& p2) {
 					}
 				}
 			}
-			else if (!(get<3>(_hits[i]))) {
+			if (!(get<3>(_hits[i]))) {
 				get<3>(_hits[i]) = true;
 				if (get<0>(_hits[i]) + 10 < 100 && _guessBoard.getPos(get<0>(_hits[i]) + 10) != 'M' && _guessBoard.getPos(get<0>(_hits[i]) + 10) != 'H') {
 					if (p2.getPos(get<0>(_hits[i]) + 10) == 'S') {
 						p2.writeShot(get<0>(_hits[i]) + 10, 'H');
 						_guessBoard.writeShot(get<0>(_hits[i]) + 10, 'H');
-						_hits.push_back(make_tuple(get<0>(_hits[i]) - 10, true, false, false, false));
+						_hits.push_back(make_tuple(get<0>(_hits[i]) + 10, true, false, false, false));
 						return true;
 					}
 					else {
@@ -136,13 +134,13 @@ bool Bot::shoot(Board& p2) {
 					}
 				}
 			}
-			else if (!(get<4>(_hits[i]))){
+			if (!(get<4>(_hits[i]))){
 				get<4>(_hits[i]) = true;
 				if (get<0>(_hits[i]) / 10 == (get<0>(_hits[i]) - 1) / 10 && _guessBoard.getPos(get<0>(_hits[i]) - 1) != 'M' && _guessBoard.getPos(get<0>(_hits[i]) - 1) != 'H') {
 					if (p2.getPos(get<0>(_hits[i]) - 1) == 'S') {
 						p2.writeShot(get<0>(_hits[i]) - 1, 'H');
 						_guessBoard.writeShot(get<0>(_hits[i]) - 1, 'H');
-						_hits.push_back(make_tuple(get<0>(_hits[i]) - 10, false, true, false, false));
+						_hits.push_back(make_tuple(get<0>(_hits[i]) - 1, false, true, false, false));
 						return true;
 					}
 					else {

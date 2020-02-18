@@ -85,50 +85,8 @@ void Board::print() {
 }
 
 bool Board::writeShip(const int& length, const char& row, const int& col, const char& dir) {
-	int index = 0;
 
-	switch (row) {
-	case 'A':
-		break;
-
-	case 'B':
-		index = 10;
-		break;
-
-	case 'C':
-		index = 20;
-		break;
-
-	case 'D':
-		index = 30;
-		break;
-
-	case 'E':
-		index = 40;
-		break;
-
-	case 'F':
-		index = 50;
-		break;
-
-	case 'G':
-		index = 60;
-		break;
-
-	case 'H':
-		index = 70;
-		break;
-
-	case 'I':
-		index = 80;
-		break;
-
-	case 'J':
-		index = 90;
-		break;
-	}
-
-	index += col;
+	int index = ((row - 'A') * 10) + col;
 
 	int buttIn = 0;
 	bool flag = false;

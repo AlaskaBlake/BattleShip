@@ -29,7 +29,7 @@ bool getCord(const int& length, Board & _myBoard) {
 	char dir;
 	string cord;
 
-	cout << "Please select the coordinate of the nose of your ship" << endl;
+	cout << "Please enter the coordinate of the nose of your ship and hit enter to continue." << endl;
 	getline(cin, cord);
 	istringstream instream(cord);
 	instream >> row;
@@ -37,7 +37,7 @@ bool getCord(const int& length, Board & _myBoard) {
 	row = toupper(row);
 	if (row >= 'A' && row<='J') {
 		if (col >= 0 && col <= 9) {
-			cout << "What direction would you like to place this ship? north (N) east (E) south (S) west (W)" << endl;
+			cout << "What direction would you like to place this ship? Please enter one of the following: North (N) East (E) South (S) West (W) and hit enter." << endl;
 			cin >> dir;
 			dir = toupper(dir);
 			if (dir == 'N' || dir == 'E' || dir == 'S' || dir == 'W') {
@@ -46,8 +46,7 @@ bool getCord(const int& length, Board & _myBoard) {
 					return false;
 				}
 				else {
-					
-					cout << "Bad ship placement. Try again." << endl;
+					cout << "Bad ship placement. Hit enter to try again." << endl;
 				}
 			}
 
@@ -92,7 +91,7 @@ void Player::placeShip() {
 
 		while (five || four || three1 || three2 || two) {
 			_myBoard.print();
-			cout << "Please select which ship you want to place by entering their number." << endl;
+			cout << "Please select which ship you want to place by entering their number and hitting enter." << endl;
 
 			if (five) {
 				cout << "Place five? (5)" << endl;
@@ -142,7 +141,7 @@ void Player::placeShip() {
 
 		while (true) {
 			_myBoard.print();
-			cout << "Are you happy with your ship placement? ('Y' or 'N')" << endl;
+			cout << "Are you happy with your ship placement? Press 'Y' for yes or 'N' for no then hit enter." << endl;
 			string input;
 			getline(cin, input);
 			istringstream ins(input);
@@ -159,7 +158,7 @@ void Player::placeShip() {
 			if (answer == 'Y' || answer == 'N')
 				break;
 			system("CLS");
-			cout << "Not a valid option. Please try again." << endl;
+			cout << "Not a valid option. Please hit enter to try again." << endl;
 		}
 
 		if (answer == 'Y')
@@ -177,12 +176,12 @@ void Player::placeShip() {
 bool Player::shoot(Board & p2) {
 
 	char row;
-	int col;
+	int col = -1;
 	char dir;
 	string cord;
 
 	while (true) {
-		cout << endl << "Please select the coordinate where you would like to shoot on your opponent's board." << endl;
+		cout << endl << "Please enter the coordinate where you would like to shoot on your opponent's board and then hit enter." << endl;
 		getline(cin, cord);
 		istringstream instream(cord);
 		instream >> row;
