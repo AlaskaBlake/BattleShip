@@ -19,6 +19,7 @@ public:
 	char getPos(const int& index);
 	void writeShot(const int& index, const char& letter);
 	bool totalHit();
+	int getSize();
 private:
 	std::vector<char> _board;
 };

@@ -186,3 +186,7 @@ bool Board::totalHit() {
 		return true;
 	return false;
 }
+
+int Board::getSize() {
+	return _board.size();
+}

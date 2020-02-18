@@ -134,13 +134,13 @@ int pvbot() {
 
 	char choice;
 	while (true) {
-		cout << endl << "Hello " << player1.getname() << " would you like an easy computer or a harder computer? Please \"E\" for an easy bot or \"H\" for a hard bot" << endl;
+		cout << endl << "Hello " << player1.getname() << " would you like an easy computer or a harder computer? Please \"E\" for an easy bot, \"M\" for a medium bot, or \"H\" for a hard bot" << endl;
 
 		string option;
 		getline(cin, option);
 		istringstream ins(option);
 		ins >> choice;
-		if (!ins || (choice != 'E' && choice != 'e' && choice != 'H' && choice != 'h')) {
+		if (!ins || (choice != 'E' && choice != 'e' && choice != 'H' && choice != 'h' && choice != 'M' && choice != 'm')) {
 			cout << "Bad input please try again. Hit enter to continue." << endl;
 			continue;
 		}
@@ -148,10 +148,12 @@ int pvbot() {
 		break;
 	}
 
-	Bot bot(false);
+	Bot bot(0);
 
+	if (choice == 'M' || choice == 'm')
+		bot.setDiff(1);
 	if (choice == 'H' || choice == 'h')
-		bot.setDiff(true);
+		bot.setDiff(2);
 
 	player1.placeShip();
 	system("CLS");
@@ -162,7 +164,7 @@ int pvbot() {
 	Sleep(1000);
 	cout << ".";
 
-	bot.placeShip();
+	bot.placeShip(player1.getBoard());
 	cout << ".";
 	Sleep(1000);
 

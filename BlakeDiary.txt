@@ -13,3 +13,5 @@
   Spent three hours with Theng working on refactoring code and the easy mode for the Bot option.
 2/16/2020
   Spent hour and a half working on the hardmode bot.
+2/17/19
+  Spent three hours working on all three bot levels and one hour on fixing user input.

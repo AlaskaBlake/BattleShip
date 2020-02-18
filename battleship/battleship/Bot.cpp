@@ -15,6 +15,10 @@ using std::tuple;
 using std::make_tuple;
 using std::get;
 
+#include <algorithm>
+using std::find;
+using std::shuffle;
+
 auto getRowColDir() {
 	random_device rd;
 	mt19937 gen(rd());
@@ -46,14 +50,58 @@ auto getRowColDir() {
 	return make_tuple(row, col, dir);
 }
 
-Bot::Bot(const bool& diff) : _difficulty(diff) {}
+bool Bot::randomGuess(Board& p2) {
+	while (true) {
+		auto package = getRowColDir();
+		char row = get<0>(package);
+		int col = get<1>(package);
 
-void Bot::setDiff(const bool& diff) {
+		int index = (row - 'A') * 10 + col;
+
+		if (index >= 0 && index <= 99 && _guessBoard.getPos(index) != 'M' && _guessBoard.getPos(index) != 'H') {
+			if (p2.getPos(index) == 'S') {
+				p2.writeShot(index, 'H');
+				_guessBoard.writeShot(index, 'H');
+				if(_difficulty == 1)
+					_hits.push_back(make_tuple(index, false, false, false, false));
+				return true;
+			}
+			else {
+				p2.writeShot(index, 'M');
+				_guessBoard.writeShot(index, 'M');
+				return false;
+			}
+
+		}
+	}
+}
+
+Bot::Bot(const int& diff) : _difficulty(diff) {}
+
+void Bot::setDiff(const int& diff) {
 	_difficulty = diff;
 }
 
-void Bot::placeShip() {
+void Bot::placeShip(Board& p2) {
+	if (_difficulty == 2) {
+		for (int i = 0; i < p2.getSize(); ++i) {
+			if (p2.getPos(i) == 'S')
+				_hitList.push_back(i);
+		}
 
+		random_device rd;
+		mt19937 gen(rd());
+		uniform_int_distribution<int>
+			randval(0, 99);
+
+		for (int i = 0; i < 17; ++i) {
+			int temp = randval(gen);
+			if (find(_hitList.begin(), _hitList.end(), temp) == _hitList.end())
+				_hitList.push_back(temp);
+		}
+
+		shuffle(_hitList.begin(), _hitList.end(), gen);
+	}
 
 	for (int i = 5; i > 1; --i) {
 
@@ -84,7 +132,23 @@ void Bot::placeShip() {
 }
 
 bool Bot::shoot(Board& p2) {
-	if (_difficulty) {
+	if (_difficulty == 2) {
+		int index = _hitList.size() - 1;
+		int last = _hitList[index];
+		_hitList.pop_back();
+
+		if (p2.getPos(last) == 'S') {
+			p2.writeShot(last, 'H');
+			_guessBoard.writeShot(last, 'H');
+			return true;
+		}
+		else {
+			p2.writeShot(last, 'M');
+			_guessBoard.writeShot(last, 'M');
+			return false;
+		}
+	}
+	else if (_difficulty == 1) {
 		for (int i = 0; i < _hits.size(); ++i) {
 			if (!(get<1>(_hits[i]))){
 				get<1>(_hits[i]) = true;
@@ -152,53 +216,10 @@ bool Bot::shoot(Board& p2) {
 			}
 		}
 
-		while (true) {
-
-			auto package = getRowColDir();
-			char row = get<0>(package);
-			int col = get<1>(package);
-
-			int index = (row - 'A') * 10 + col;
-
-			if (index >= 0 && index <= 99 && _guessBoard.getPos(index) != 'M' && _guessBoard.getPos(index) != 'H') {
-				if (p2.getPos(index) == 'S') {
-					p2.writeShot(index, 'H');
-					_guessBoard.writeShot(index, 'H');
-					_hits.push_back(make_tuple(index, false, false, false, false));
-					return true;
-				}
-				else {
-					p2.writeShot(index, 'M');
-					_guessBoard.writeShot(index, 'M');
-					return false;
-				}
-
-			}
-		}
-
+		return randomGuess(p2);
 	}
 	else {
-		while (true) {
-			auto package = getRowColDir();
-			char row = get<0>(package);
-			int col = get<1>(package);
-
-			int index = (row - 'A') * 10 + col;
-
-			if (index >= 0 && index <= 99 && _guessBoard.getPos(index) != 'M' && _guessBoard.getPos(index) != 'H') {
-				if (p2.getPos(index) == 'S') {
-					p2.writeShot(index, 'H');
-					_guessBoard.writeShot(index, 'H');
-					return true;
-				}
-				else {
-					p2.writeShot(index, 'M');
-					_guessBoard.writeShot(index, 'M');
-					return false;
-				}
-
-			}
-		}
+		return randomGuess(p2);	
 	}
 }
 

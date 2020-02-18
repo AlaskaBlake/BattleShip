@@ -14,17 +14,20 @@
 
 class Bot {
 public:
-	Bot(const bool& diff);
-	void setDiff(const bool& diff);
-	void placeShip();
+	Bot(const int& diff);
+	void setDiff(const int& diff);
+	void placeShip(Board& p2);
 	bool shoot(Board& p2);
 	bool winCheck();
 	Board& getBoard();
+
+	bool randomGuess(Board& p2);
 private:
-	bool _difficulty;
+	int _difficulty;
 	Board _myBoard;
 	Board _guessBoard;
 	std::vector<std::tuple<int, bool, bool, bool, bool>> _hits;
+	std::vector<int> _hitList;
 };
 
 #endif
