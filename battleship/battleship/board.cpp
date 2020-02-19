@@ -86,7 +86,7 @@ void Board::print() {
 
 bool Board::writeShip(const int& length, const char& row, const int& col, const char& dir) {
 
-	int index = ((row - 'A') * 10) + col;
+	int index = ((row - 'A') * 10 ) + col;
 
 	int buttIn = 0;
 	bool flag = false;
@@ -134,14 +134,14 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 
 		copy *= 10;
 
-		if (index - copy >= 0) {
-			for (int i = index; i > index - copy; i -= 10) {
+		if (index - copy +10 >= 0) {
+			for (int i = index; i >= index - copy+10; i -= 10) {
 				if (_board[i] == 'S')
 					flag = true;
 			}
 
 			if (!flag) {
-				for (int i = index; i > index - copy; i -= 10) {
+				for (int i = index; i >= index - copy+10; i -= 10) {
 					_board[i] = 'S';
 				}
 				return true;
@@ -155,14 +155,13 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 		int copy = length;
 
 		copy *= 10;
-
-		if (index + copy <= 99) {
-			for (int i = index; i < index + copy; i += 10) {
+		if (index + copy-10 <= 99) {
+			for (int i = index; i <= index + copy-10; i += 10) {
 				if(_board[i] == 'S')
 					flag = true;
 			}
 			if (!flag) {
-				for (int i = index; i < index + copy; i += 10) {
+				for (int i = index; i <= index + copy -10; i += 10) {
 					_board[i] = 'S';
 				}
 				return true;
