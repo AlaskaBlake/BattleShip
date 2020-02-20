@@ -11,6 +11,7 @@
 
 #include <ostream>
 
+// representation of an 10X10 battleship board
 class Board {
 public:
 	Board();

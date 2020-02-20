@@ -20,6 +20,10 @@ using std::getline;
 #include <sstream>
 using std::istringstream;
 
+
+// intermission screen for pass and play
+// bool turn is true for player1 turn
+// bool turn is false for player2 turn
 void pass(bool & turn, const Player& player1, const Player& player2) {
 	system("CLS");
 	cout << "Pass the computer to ";
@@ -36,11 +40,15 @@ void pass(bool & turn, const Player& player1, const Player& player2) {
 	system("CLS");
 }
 
+
+// overhead for player vs. player
+// goes through name retrieval for both players, ship placements, and turn control 
 int pvp() {
 	Player player1;
 	Player player2;
 	bool turn = false; // True is player one and false for player two
 
+	// ******************* name retrieval ***************************//
 	cout << "Player one please enter your name and then hit enter: ";
 	string temp;
 	while (true) {
@@ -72,12 +80,14 @@ int pvp() {
 	while (cin.get() != '\n') {}
 	system("CLS");
 
+	// ******************* Place Ships ***************************//
 	player1.placeShip();
 
 	pass(turn, player1, player2);
 
 	player2.placeShip();
 
+	// ******************* turn overhead ***************************//
 	while (true) {
 
 		pass(turn, player1, player2);
@@ -120,7 +130,13 @@ int pvp() {
 	}
 }
 
+
+// overhead for player vs. bot
+// goes through name retrieval for the player, ship placements for player and bot,
+// and turn overhead
 int pvbot() {
+
+	// ******************* name retrieval ***************************//
 	Player player1;
 	cout << "Player one please enter your name and then hit enter: ";
 	string temp;
@@ -133,6 +149,8 @@ int pvbot() {
 	player1.setname(temp);
 
 	char choice;
+
+	// ******************* bot difficulty selection ***************************//
 	while (true) {
 		cout << endl << "Hello " << player1.getname() << " would you like an easy computer or a harder computer? Please \"E\" for an easy bot, \"M\" for a medium bot, or \"H\" for a hard bot" << endl;
 
@@ -155,6 +173,8 @@ int pvbot() {
 	if (choice == 'H' || choice == 'h')
 		bot.setDiff(2);
 
+
+	// ******************* ship placement ***************************//
 	player1.placeShip();
 	system("CLS");
 
@@ -170,6 +190,8 @@ int pvbot() {
 
 	system("CLS");
 
+
+	// ******************* turn overhead ***************************//
 	while (true) {
 		player1.print();
 
@@ -217,6 +239,9 @@ int pvbot() {
 	}
 }
 
+
+// initial prompt to user to choose a game mode
+// then calls proper function
 int main() {
 	char answer;
 	while (true) {

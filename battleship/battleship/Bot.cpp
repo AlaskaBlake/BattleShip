@@ -19,6 +19,7 @@ using std::get;
 using std::find;
 using std::shuffle;
 
+// get a random row, column, and direction
 auto getRowColDir() {
 	random_device rd;
 	mt19937 gen(rd());
@@ -50,6 +51,8 @@ auto getRowColDir() {
 	return make_tuple(row, col, dir);
 }
 
+// user by easy and medium level bot 
+// guesses a random valid location on the board
 bool Bot::randomGuess(Board& p2) {
 	while (true) {
 		auto package = getRowColDir();
@@ -62,6 +65,8 @@ bool Bot::randomGuess(Board& p2) {
 			if (p2.getPos(index) == 'S') {
 				p2.writeShot(index, 'H');
 				_guessBoard.writeShot(index, 'H');
+
+				// medium difficulty bot logs the random hit
 				if(_difficulty == 1)
 					_hits.push_back(make_tuple(index, false, false, false, false));
 				return true;
@@ -76,13 +81,18 @@ bool Bot::randomGuess(Board& p2) {
 	}
 }
 
+// default construct for easy bot
 Bot::Bot(const int& diff) : _difficulty(diff) {}
 
 void Bot::setDiff(const int& diff) {
 	_difficulty = diff;
 }
 
+// auto place ship in first valid location for bots
+// for hard level bot: makes hit list base on opponent's ship placement
 void Bot::placeShip(Board& p2) {
+
+	// add 17 ship locations and 17 miss locations, then shuffle them
 	if (_difficulty == 2) {
 		for (int i = 0; i < p2.getSize(); ++i) {
 			if (p2.getPos(i) == 'S')
@@ -103,6 +113,7 @@ void Bot::placeShip(Board& p2) {
 		shuffle(_hitList.begin(), _hitList.end(), gen);
 	}
 
+	// place each ship, except for one length 3 ship
 	for (int i = 5; i > 1; --i) {
 
 		while (true) {
@@ -118,6 +129,7 @@ void Bot::placeShip(Board& p2) {
 		}
 	}
 
+	// place last length 3 ship
 	while (true){
 		auto package = getRowColDir();
 
@@ -131,7 +143,16 @@ void Bot::placeShip(Board& p2) {
 
 }
 
+// easy: uses getRowColDir() to randomly shoot at a valid location
+
+// medium: uses getRowColDir() to randomly shoot at a valid location
+//         until a hit is found. Then logs the hit, and shoots around 
+//         hit location. This include hits found after random guess.
+
+// hard: shoot from a pre-determined list that contains 17 hits and 17 misses.
 bool Bot::shoot(Board& p2) {
+
+	// hard level bot
 	if (_difficulty == 2) {
 		int index = _hitList.size() - 1;
 		int last = _hitList[index];
@@ -148,9 +169,13 @@ bool Bot::shoot(Board& p2) {
 			return false;
 		}
 	}
+
+	// medium level bot
+	// after a hit, check for a valid nearby location to shoot at
+	// for the tuple, the first bool is North, 2nd bool is East, 3rd is South, 4th is West
 	else if (_difficulty == 1) {
-		for (int i = 0; i < _hits.size(); ++i) {
-			if (!(get<1>(_hits[i]))){
+		for (int i = 0; i < _hits.size(); ++i) {   // for every known hit, only try to shoot at each cardnal location once.
+			if (!(get<1>(_hits[i]))){   // North check
 				get<1>(_hits[i]) = true;
 				if (get<0>(_hits[i]) - 10 >= 0 && _guessBoard.getPos(get<0>(_hits[i]) - 10) != 'M' && _guessBoard.getPos(get<0>(_hits[i]) - 10) != 'H') {
 					if (p2.getPos(get<0>(_hits[i]) - 10) == 'S') {
@@ -166,7 +191,7 @@ bool Bot::shoot(Board& p2) {
 					}
 				}
 			}
-			if (!(get<2>(_hits[i]))){
+			if (!(get<2>(_hits[i]))){ // East check
 				get<2>(_hits[i]) = true;
 				if (get<0>(_hits[i])/10 == (get<0>(_hits[i])+1) / 10 && _guessBoard.getPos(get<0>(_hits[i]) + 1) != 'M' && _guessBoard.getPos(get<0>(_hits[i]) + 1) != 'H') {
 					if (p2.getPos(get<0>(_hits[i]) + 1) == 'S') {
@@ -182,7 +207,7 @@ bool Bot::shoot(Board& p2) {
 					}
 				}
 			}
-			if (!(get<3>(_hits[i]))) {
+			if (!(get<3>(_hits[i]))) { // South check
 				get<3>(_hits[i]) = true;
 				if (get<0>(_hits[i]) + 10 < 100 && _guessBoard.getPos(get<0>(_hits[i]) + 10) != 'M' && _guessBoard.getPos(get<0>(_hits[i]) + 10) != 'H') {
 					if (p2.getPos(get<0>(_hits[i]) + 10) == 'S') {
@@ -198,7 +223,7 @@ bool Bot::shoot(Board& p2) {
 					}
 				}
 			}
-			if (!(get<4>(_hits[i]))){
+			if (!(get<4>(_hits[i]))){ // West check
 				get<4>(_hits[i]) = true;
 				if (get<0>(_hits[i]) / 10 == (get<0>(_hits[i]) - 1) / 10 && _guessBoard.getPos(get<0>(_hits[i]) - 1) != 'M' && _guessBoard.getPos(get<0>(_hits[i]) - 1) != 'H') {
 					if (p2.getPos(get<0>(_hits[i]) - 1) == 'S') {
@@ -216,18 +241,23 @@ bool Bot::shoot(Board& p2) {
 			}
 		}
 
+		// if all else fails, guess randomly
 		return randomGuess(p2);
 	}
+
+	// easy level bot
 	else {
 		return randomGuess(p2);	
 	}
 }
 
+// return if game is over
 bool Bot::winCheck() {
 	return _guessBoard.totalHit();
 }
 
 
+// return a reference to personal board for bot
 Board& Bot::getBoard() {
 	return _myBoard;
 }

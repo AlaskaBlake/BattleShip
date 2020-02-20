@@ -11,8 +11,9 @@
 
 #include "board.hpp"
 
-class Player
-{
+
+// Representation of a human player for the game Battleship
+class Player {
 public:
 	void setname(const std::string& name);
 	std::string getname() const;

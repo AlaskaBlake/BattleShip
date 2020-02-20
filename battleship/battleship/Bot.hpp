@@ -12,6 +12,9 @@
 
 #include <tuple>
 
+
+// a class for an easy, medium, and hard difficulty 
+// bot for the game Battleship
 class Bot {
 public:
 	Bot(const int& diff);

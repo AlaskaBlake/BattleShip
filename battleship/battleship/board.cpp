@@ -16,11 +16,13 @@ using std::count;
 
 #include <Windows.h>
 
+//Defualt constructor
 Board::Board(){
 	for (int i = 0; i < 100; ++i)
 		_board.push_back('-');
 }
 
+//Print a board in nice text-color box
 void Board::print() {
 	//built in array for console text attributes
 	// 0x30 - cyan background black text
@@ -78,21 +80,21 @@ void Board::print() {
 		}
 		cout << endl;
 	}
-
+	// return to default setting
 	SetConsoleTextAttribute(hstdout, csbi.wAttributes);
 
 
 }
 
-bool Board::writeShip(const int& length, const char& row, const int& col, const char& dir) {
+// write ship on a board, checks for collision and out of bound error.
+bool Board::writeShip(const int& length, const char& row, const int& col, const char& direction) {
 
 	int index = ((row - 'A') * 10 ) + col;
 
-	int buttIn = 0;
 	bool flag = false;
 
-	if (dir == 'E') {
-		if (index / 10 == (index + length) / 10) {
+	if (direction == 'E') {
+		if (index / 10 == (index + length - 1) / 10) {
 
 			for (int i = index; i < index + length; ++i) {
 				if (_board[i] == 'S')
@@ -110,8 +112,8 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 	
 	}
 
-	if (dir == 'W') {
-		if (index!= 0 && (index / 10 == (index - length) / 10)) {
+	if (direction == 'W') {
+		if (index!= 0 && (index / 10 == (index - length + 1) / 10)) {
 
 			for (int i = index - length + 1; i <= index; ++i) {
 				if (_board[i] == 'S')
@@ -128,7 +130,7 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 
 	}
 
-	if (dir == 'N') {
+	if (direction == 'N') {
 
 		int copy = length;
 
@@ -150,7 +152,7 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 
 	}
 
-	if (dir == 'S') {
+	if (direction == 'S') {
 
 		int copy = length;
 
@@ -172,20 +174,24 @@ bool Board::writeShip(const int& length, const char& row, const int& col, const 
 	return false;
 }
 
+// return item at the index location
 char Board::getPos(const int& index) {
 	return _board[index];
 }
 
+// set index position to provided letter
 void Board::writeShot(const int& index, const char& letter) {
 	_board[index] = letter;
 }
 
+//return true if hit total is 17
 bool Board::totalHit() {
 	if (count(_board.begin(), _board.end(), 'H') == 17)
 		return true;
 	return false;
 }
 
+//return the size of the board
 int Board::getSize() {
 	return _board.size();
 }

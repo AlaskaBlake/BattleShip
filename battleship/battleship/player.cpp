@@ -1,7 +1,7 @@
 //player.cpp
 //Blake Caldwell and Theng Yang
 //Feburary 9, 2020
-//
+// Representation of a human player for a game of Battleship
 
 #include "player.hpp"
 
@@ -23,6 +23,8 @@ using std::istringstream;
 #include <algorithm>
 using std::move;
 
+// not a member function
+// utility function to get user input on ship placement location.
 bool getCord(const int& length, Board & _myBoard) {
 	char row;
 	int col;
@@ -64,6 +66,8 @@ bool getCord(const int& length, Board & _myBoard) {
 	
 	return true;
 }
+
+
 void Player::setname(const string& name) {
 	_name = name;
 }
@@ -72,11 +76,13 @@ string Player::getname() const {
 	return _name;
 }
 
+// call board member function print() to print the boards
 void Player::print() {
 	_guessBoard.print();
 	_myBoard.print();
 }
 
+// go through process of all ship placement with the player
 void Player::placeShip() {
 
 	while (true) {
@@ -89,6 +95,7 @@ void Player::placeShip() {
 		bool three2 = true;
 		bool two = true;
 
+		// loop until every ship is placed
 		while (five || four || three1 || three2 || two) {
 			_myBoard.print();
 			cout << "Please select which ship you want to place by entering their number and hitting enter." << endl;
@@ -139,6 +146,7 @@ void Player::placeShip() {
 
 		char answer;
 
+		// get valid user input 
 		while (true) {
 			_myBoard.print();
 			cout << "Are you happy with your ship placement? Press 'Y' for yes or 'N' for no then hit enter." << endl;
@@ -161,9 +169,11 @@ void Player::placeShip() {
 			cout << "Not a valid option. Please hit enter to try again." << endl;
 		}
 
+		// finish ship placement 
 		if (answer == 'Y')
 			break;
 		
+		// create new board and overide old board to start again.
 		Board temp;
 		_myBoard = move(temp);
 		cout << "Press enter to start again." << endl;
@@ -173,6 +183,7 @@ void Player::placeShip() {
 	}
 }
 
+// get position player want to shoot at opponent
 bool Player::shoot(Board & p2) {
 
 	char row;
@@ -211,10 +222,12 @@ bool Player::shoot(Board & p2) {
 
 }
 
+// return true if game is over. 
 bool Player::winCheck() {
 	return _guessBoard.totalHit();
 }
 
+// return a reference player ship board
 Board& Player::getBoard() {
 	return _myBoard;
 }
