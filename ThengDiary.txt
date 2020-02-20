@@ -17,7 +17,11 @@ FEB 16 2020:
 Work with Blake on dumb AI and refactoring codes for 3 hours.
 
 FEB 18 2020:
-Spend half an hour fixing ship placement bug.
+Spend one and a half hour fixing ship placement bug.
 
 FEB 19 2020:
 Spend an hour with Blake commenting codes.
+
+FEB 19 2020:
+Spend two hours and 30 minutes fixing inputs bug and refactoring condition statements and runing last test
+before wrapping it up for presentation.

@@ -148,29 +148,27 @@ int pvbot() {
 	}
 	player1.setname(temp);
 
-	char choice;
+	string option;
 
 	// ******************* bot difficulty selection ***************************//
 	while (true) {
+		
 		cout << endl << "Hello " << player1.getname() << " would you like an easy computer or a harder computer? Please \"E\" for an easy bot, \"M\" for a medium bot, or \"H\" for a hard bot" << endl;
 
-		string option;
 		getline(cin, option);
-		istringstream ins(option);
-		ins >> choice;
-		if (!ins || (choice != 'E' && choice != 'e' && choice != 'H' && choice != 'h' && choice != 'M' && choice != 'm')) {
-			cout << "Bad input please try again. Hit enter to continue." << endl;
-			continue;
+
+		if (option.length() ==1 && (toupper(option[0])== 'E' || toupper(option[0]) == 'H' && toupper(option[0]) == 'M' )) {
+			break;
 		}
 
-		break;
+		cout << "Bad input please try again. Hit enter to continue." << endl;
 	}
 
 	Bot bot(0);
 
-	if (choice == 'M' || choice == 'm')
+	if (toupper(option[0]) == 'M')
 		bot.setDiff(1);
-	if (choice == 'H' || choice == 'h')
+	if (toupper(option[0]) == 'H')
 		bot.setDiff(2);
 
 
@@ -243,26 +241,25 @@ int pvbot() {
 // initial prompt to user to choose a game mode
 // then calls proper function
 int main() {
-	char answer;
+	string input;
 	while (true) {
 		cout << "Would you like to play BattleShip vs another player (locally) or against a computer?" << endl;
 		cout << "For Computer hit \"C\" for Person hit \"P\" and then enter." << endl;
-		string input;
+		
 		getline(cin, input);
-		istringstream ins(input);
-		ins >> answer;
-		if (!ins || (answer != 'c' && answer != 'C' && answer != 'p' && answer != 'P')) {
-			cout << "Bad input please try again. Press enter to continue." << endl;
-			while (cin.get() != '\n') {}
-			continue;
+	
+		if ( input.length() ==1 && toupper(input[0]) =='C' || toupper(input[0]) =='P') {
+			
+			break;
 		}
+		cout << "Bad input please try again. Press enter to continue." << endl;
+		while (cin.get() != '\n') {}
 
-		break;
 	}
 
-	if (answer == 'c' || answer == 'C')
+	if (toupper(input[0]) =='C')
 		pvbot();
-	if (answer == 'p' || answer == 'P')
+	if (toupper(input[0]) == 'P')
 		pvp();
 
 	return 0;

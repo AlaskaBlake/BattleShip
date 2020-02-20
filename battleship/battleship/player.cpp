@@ -33,12 +33,14 @@ bool getCord(const int& length, Board & _myBoard) {
 
 	cout << "Please enter the coordinate of the nose of your ship and hit enter to continue." << endl;
 	getline(cin, cord);
-	istringstream instream(cord);
-	instream >> row;
-	instream >> col;
-	row = toupper(row);
-	if (row >= 'A' && row<='J') {
-		if (col >= 0 && col <= 9) {
+
+		istringstream instream(cord);
+		instream >> row;
+		instream >> col;
+
+		row = toupper(row);
+		if (row >= 'A' && row <= 'J' && cord[1] >='0' && cord[1] <='9') {
+		
 			cout << "What direction would you like to place this ship? Please enter one of the following: North (N) East (E) South (S) West (W) and hit enter." << endl;
 			cin >> dir;
 			dir = toupper(dir);
@@ -47,22 +49,13 @@ bool getCord(const int& length, Board & _myBoard) {
 					system("CLS");
 					return false;
 				}
-				else {
-					cout << "Bad ship placement. Hit enter to try again." << endl;
-				}
 			}
 
 		}
 		else {
-			
-			cout << "NO valid coordinate, please hit Enter to try again." << endl;
+
+			cout << "NO valid coordinate, please hit Enter try again." << endl;
 		}
-		
-	}
-	else {
-	
-		cout << "NO valid coordinate, please hit Enter try again." << endl;
-	}
 	
 	return true;
 }
@@ -198,7 +191,7 @@ bool Player::shoot(Board & p2) {
 		instream >> row;
 		instream >> col;
 		row = toupper(row);
-		if (!(row >= 'A' && row <= 'J' && col >= 0 && col <= 9))
+		if (!(row >= 'A' && row <= 'J' && cord[1] >= '0' && cord[1] <= '9'))
 			continue;
 
 		int index = 0;
