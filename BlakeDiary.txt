@@ -17,3 +17,14 @@
   Spent three hours working on all three bot levels and one hour on fixing user input.
 2/19/2020
   Spent a hour with Theng commenting all code files.
+  
+Paired programing review: I believe that paired programming had a positive inpact on this project. Theng and I code very differently and 
+    the begining it was very slow but after we figured out the best way to do it we were off to the races. We had better names for
+    things and had a good stepping stone for when we were working alone. When we were coding the other would often catch common errors
+    such as checking user input all the way or edge cases for working with the boards.
+    
+TDD Review: It was annoying going through and testing everything previously tested by hand every time we added something. This is
+    because with doing user input and gui output as a part of the first user stories it is harder to do automated TDD. Although it was
+    annoying I feel it helped prevent a lot a dumb little bugs like bad user input causeing the program to crash. With out it I believe
+    Theng and I would have tryed to get a working game and then go through and hunt for bugs which would take a lot more time and would
+    have led to sloppier code.
