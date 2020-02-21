@@ -157,7 +157,7 @@ int pvbot() {
 
 		getline(cin, option);
 
-		if (option.length() ==1 && (toupper(option[0])== 'E' || toupper(option[0]) == 'H' && toupper(option[0]) == 'M' )) {
+		if (option.length() ==1 && (toupper(option[0])== 'E' || toupper(option[0]) == 'H' || toupper(option[0]) == 'M' )) {
 			break;
 		}
 

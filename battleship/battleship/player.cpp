@@ -39,7 +39,7 @@ bool getCord(const int& length, Board & _myBoard) {
 		instream >> col;
 
 		row = toupper(row);
-		if (row >= 'A' && row <= 'J' && cord[1] >='0' && cord[1] <='9') {
+		if (row >= 'A' && row <= 'J' && cord[1] >='0' && cord[1] <='9' && col >= 0 && col <=9) {
 		
 			cout << "What direction would you like to place this ship? Please enter one of the following: North (N) East (E) South (S) West (W) and hit enter." << endl;
 			cin >> dir;
@@ -191,7 +191,7 @@ bool Player::shoot(Board & p2) {
 		instream >> row;
 		instream >> col;
 		row = toupper(row);
-		if (!(row >= 'A' && row <= 'J' && cord[1] >= '0' && cord[1] <= '9'))
+		if (!(row >= 'A' && row <= 'J' && cord[1] >= '0' && cord[1] <= '9' &&col >=0 && col <=9))
 			continue;
 
 		int index = 0;
